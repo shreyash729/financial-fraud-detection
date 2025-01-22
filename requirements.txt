@@ -1,0 +1,7 @@
+# requirements.txt
+boto3
+awscli
+numpy
+pandas
+opencv-python
+requests
