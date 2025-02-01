@@ -1,100 +1,66 @@
-# Financial Fraud Detection Solution
+# AWS Fraud Detection System
 
-## Overview
-This project provides an AI-powered solution to detect and prevent financial fraud, focusing on spam call detection, deepfake VKYC fraud prevention, and transaction monitoring. The solution leverages AWS cloud services to provide real-time, scalable, and privacy-compliant fraud detection mechanisms.
+This project is a modular system for detecting fraud and spam in real-time using AWS services and machine learning. It includes preprocessing scripts, model training, and integration with AWS Lambda for real-time analysis.
 
 ## Features
+- **Spam Detection**: Detects spam messages using a trained machine learning model.
+- **Fraud Detection**: Detects fraudulent calls by analyzing call transcripts.
+- **Real-Time Alerts**: Sends real-time alerts using AWS SNS when fraud is detected.
+- **Scalable**: Built on AWS services, making it highly scalable and cost-effective.
 
-1. **Spam Call Detection:**
-   - Analyze call metadata and behavioral patterns to detect suspicious activities.
-   - Utilize NLP techniques to analyze call transcripts for phishing and scam indicators.
-   - Real-time call blocking and user alerts to mitigate risks.
 
-2. **Deepfake VKYC Detection:**
-   - Advanced computer vision and audio analysis to detect manipulated facial expressions and voice patterns.
-   - Real-time differentiation between authentic and AI-generated inputs.
+## Datasets
+1. **spam_messages.csv**:
+   - `v1`: Label (spam/ham)
+   - `v2`: Message text
 
-3. **Transaction Monitoring:**
-   - Monitor transaction patterns to detect anomalies indicative of fraud or money laundering.
-   - Ensure post-onboarding security through continuous analysis.
+2. **fraud_call.tsv**:
+   - `type`: Label (fraud/normal)
+   - `clue`: Call transcript or message
 
-4. **User Feedback & Reporting:**
-   - Enable users to report fraud and spam, improving the system via feedback loops.
-   
-## AWS Services Used
-- **Amazon Connect:** For call handling and analysis.
-- **Amazon Transcribe:** Convert voice to text for further NLP analysis.
-- **Amazon Comprehend:** Analyze text for scam indicators.
-- **Amazon Rekognition:** Deepfake detection via facial analysis.
-- **AWS Lambda:** Serverless execution for real-time processing.
-- **Amazon CloudWatch:** Monitoring and alerting.
-- **Amazon DynamoDB:** Store fraud detection records.
+## Setup Instructions
 
-## System Architecture
-The solution follows a modular architecture:
+### Prerequisites
+- Python 3.8+
+- AWS Account
+- AWS CLI configured
 
-1. Incoming call data -> Amazon Connect -> AWS Lambda (call analysis)
-2. Call transcript -> Amazon Transcribe -> Amazon Comprehend
-3. VKYC video -> Amazon Rekognition -> Fraud detection
-4. Transaction data -> Machine Learning models for anomaly detection
-
-## Installation
-
+### Installation
 1. Clone the repository:
-    ```bash
-    git clone https://github.com/yourusername/financial-fraud-detection.git
-    cd financial-fraud-detection
-    ```
+   ```bash
+   git clone https://github.com/shreyash729/financial-fraud-detection.git
+   cd financial-fraud-detection
+
 2. Install dependencies:
     ```bash
     pip install -r requirements.txt
     ```
-3. Deploy AWS infrastructure using CloudFormation:
+3. Preprocess the data:
     ```bash
-    aws cloudformation deploy --template-file deployment/cloudformation_template.yaml --stack-name fraud-detection-stack
+    python src/data_preprocessing.py
+    ```
+4. Train the models:
+    ```bash
+    python src/train_model.py
     ```
 
-## Folder Structure
-
-```
-financial-fraud-detection/
-├── README.md
-├── LICENSE
-├── .gitignore
-├── architecture/
-│   └── solution-architecture.png
-├── src/
-│   ├── spam_call_detection.py
-│   ├── deepfake_detection_vkyc.py
-│   ├── fraud_transaction_monitor.py
-│   └── utils.py
-├── models/
-│   └── ml_model.pkl
-├── deployment/
-│   ├── cloudformation_template.yaml
-│   └── lambda_functions/
-│       ├── call_analysis_lambda.py
-│       └── vkyc_verification_lambda.py
-├── docs/
-│   └── detailed_solution_documentation.md
-└── requirements.txt
-```
 
 ## Usage
 
-1. Run spam call detection:
-    ```python
-    from src.spam_call_detection import detect_spam_call
-    detect_spam_call("Your bank account is compromised, call now!")
+1. Test the models:
+    ```bash
+    jupyter notebook notebooks/example_usage.ipynb
     ```
 
-2. Run deepfake detection:
-    ```python
-    from src.deepfake_detection_vkyc import detect_deepfake
-    detect_deepfake("sample_video.mp4")
+2. Deploy to AWS:
+   1. Zip the lambda_handler.py script:
+    ```bash
+    zip lambda_handler.zip src/lambda_handler.py
     ```
+   2. Upload the zip file to AWS Lambda.
+   3. Configure triggers (e.g., Amazon Connect → AWS Lambda).    
 
-3. Monitor transactions:
+4. Monitor transactions:
     ```python
     from src.fraud_transaction_monitor import detect_fraudulent_transaction
     detect_fraudulent_transaction({"amount": 15000, "location": "Unknown"})
