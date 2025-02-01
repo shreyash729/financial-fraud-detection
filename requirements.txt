@@ -1,7 +1,3 @@
-# requirements.txt
-boto3
-awscli
-numpy
-pandas
-opencv-python
-requests
+boto3==1.28.63
+pandas==2.0.3
+jupyter==1.0.0
