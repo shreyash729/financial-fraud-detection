@@ -60,11 +60,7 @@ This project is a modular system for detecting fraud and spam in real-time using
    2. Upload the zip file to AWS Lambda.
    3. Configure triggers (e.g., Amazon Connect → AWS Lambda).    
 
-4. Monitor transactions:
-    ```python
-    from src.fraud_transaction_monitor import detect_fraudulent_transaction
-    detect_fraudulent_transaction({"amount": 15000, "location": "Unknown"})
-    ```
+
 
 ## Contribution
 Contributions are welcome! Please follow these steps:
