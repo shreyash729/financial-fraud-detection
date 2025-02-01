@@ -62,6 +62,24 @@ This project is a modular system for detecting fraud and spam in real-time using
 
 
 
+---
+
+### **2. `.env.example`**
+This file is a template for setting up environment variables. Users should copy this file to `.env` and fill in the required values.
+
+```bash
+# AWS Credentials
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=your-access-key-id
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+
+# SNS Topic for Alerts
+SNS_TOPIC_ARN=arn:aws:sns:us-east-1:1234567890:fraud-alerts
+
+# Optional: Model Paths
+SPAM_MODEL_PATH=models/spam_detection_model.pkl
+FRAUD_MODEL_PATH=models/fraud_detection_model.pkl
+```
 ## Contribution
 Contributions are welcome! Please follow these steps:
 
