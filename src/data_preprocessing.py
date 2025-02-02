@@ -57,10 +57,10 @@ def preprocess_fraud_data(filepath):
 
 if __name__ == "__main__":
     # Preprocess spam data
-    X_spam, y_spam = preprocess_spam_data('data/spam_messages.csv')
+    X_spam, y_spam = preprocess_spam_data('./../data/spam.csv')
     
     # Preprocess fraud data
-    X_fraud, y_fraud = preprocess_fraud_data('data/fraud_call.tsv')
+    X_fraud, y_fraud = preprocess_fraud_data('./../data/fraud_call.file')
     
     # Save preprocessed data
     joblib.dump((X_spam, y_spam), 'data/preprocessed_spam_data.pkl')
